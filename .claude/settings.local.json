@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 *)",
+      "WebSearch",
+      "WebFetch(domain:forums.ni.com)",
+      "WebFetch(domain:documentation.help)",
+      "WebFetch(domain:www.ni.com)"
+    ]
+  }
+}
