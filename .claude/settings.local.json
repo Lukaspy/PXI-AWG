@@ -5,7 +5,15 @@
       "WebSearch",
       "WebFetch(domain:forums.ni.com)",
       "WebFetch(domain:documentation.help)",
-      "WebFetch(domain:www.ni.com)"
+      "WebFetch(domain:www.ni.com)",
+      "Bash(command -v yay paru pikaur trizen aurutils)",
+      "Bash(pacman -Q)",
+      "Bash(lspci -tv)",
+      "Bash(lsmod)",
+      "Bash(echo \"exit:$?\")",
+      "Bash(pacman -Si linux-lts)",
+      "Bash(pacman -Si linux)",
+      "Bash(lsblk -o NAME,SIZE,FSTYPE,MOUNTPOINTS,LABEL,PARTLABEL)"
     ]
   }
 }
