@@ -33,9 +33,11 @@ DAC_MAX = 65535      # U16 for +10 V
 LED_V_MIN = 0.0      # LED source minimum input voltage
 LED_V_MAX = 10.0     # LED source maximum input voltage
 
-# U16 values corresponding to LED voltage range
-LED_U16_MIN = 32768  # 0 V on ±10 V DAC
-LED_U16_MAX = 65535  # +10 V on ±10 V DAC
+# The FPGA AO IO node interprets the U16 register as a signed I16,
+# linearly mapped to the ±10 V DAC range: I16 0 = 0 V, +32767 ≈ +10 V,
+# -32768 = -10 V. For the LED driver we only use the 0-10 V half.
+LED_U16_MIN = 0      # 0 V
+LED_U16_MAX = 32767  # +10 V (I16 max)
 
 
 def intensity_to_u16(intensity_pct: float) -> int:
@@ -54,8 +56,9 @@ def u16_to_intensity(u16_val: int) -> float:
 
 
 def u16_to_voltage(u16_val: int) -> float:
-    """Convert U16 DAC value to voltage."""
-    return -10.0 + (u16_val / 65535.0) * 20.0
+    """Convert U16 DAC value to voltage (register is interpreted as signed I16)."""
+    signed = u16_val if u16_val < 32768 else u16_val - 65536
+    return signed / 32768.0 * 10.0
 
 
 def output_rate_to_ticks(rate_hz: float) -> int:
